@@ -1,0 +1,1 @@
+Multi-purpose web scraper that gathers data from google classroom and studentVUE
