@@ -1,5 +1,5 @@
-# import matplotlib
-print("importing numpy")
-import numpy
-# import selenium
+import matplotlib
+import selenium
+import numpy as np
+from chromedriver import webdriver
 
