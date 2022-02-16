@@ -9,8 +9,15 @@ from tkinter import *
 #tkinter window creation
 window = tk.Tk()
 window.title("Grade Check Beta")
-title = Label(window, text="Grade Check Beta 1.0")
-title.grid(row=0, column=0)
+#Consider adding padding a lot later in development
+title = Label(window, text="Grade Check Beta 1.0", font=("arial", 25))
+title.grid(row=0, column=1)
+
+#Note that we're currently defaulting to use Chrome, change later
+user = Button(window, text = "User friendly", font=("arial", 10), command=lambda:directory(1, "Chrome"))
+instant = Button(window, text = "Instant data", font=("arial", 10), command=lambda:directory(2, None))
+user.grid(row=1, column=0)
+instant.grid(row=1, column=2)
 
 def userVersion():
     if str(input("User friendly version? (y/n) ")).lower() == "y":
