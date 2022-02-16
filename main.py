@@ -1,17 +1,14 @@
-from init import userVersion
+import init
+import chromedriver_autoinstaller
 
-def directory(version, browser):
-    if version == 1:
-        #Change to include different browsers later (if browser = Firefox driver = webdriver.Chrome)
-        driver = webdriver.browser()
-        
+chromedriver_autoinstaller.install()
 
-userVersion()
-if userVersion:
+if init.userVersion():
     print("Using a descriptive, visual based GUI to gather data...\n")
-    directory(1, "Chrome")
+    init.directory(1, "Chrome")
     
 else:
     print("Using BeautifulSoup to quickly gather data...\n")
-    directory(2)
+    init.directory(2, None)
+
 
