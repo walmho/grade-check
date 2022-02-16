@@ -1,4 +1,6 @@
 import init
+import tkinter as tk
+from tkinter import *
 import chromedriver_autoinstaller
 
 chromedriver_autoinstaller.install()
