@@ -25,12 +25,12 @@ def pickBrowser():
     for browser in range(len(supportedBrowsers)):
         selectionBox.insert(browser+1, supportedBrowsers[browser])
     selectionBox.grid(row=1, column=0)
-    browser = "Chrome"
-    userPreferences.append(browser)
+    chosenBrowser = selectionBox.get(ACTIVE)
+    userPreferences.append(chosenBrowser)
+
 
 chooseVersion()
 pickBrowser()
 
-        
 rootWindow.mainloop()
     
