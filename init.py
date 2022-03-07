@@ -6,12 +6,9 @@ import tkinter as tk
 from tkinter import *
 #import BeautifulSoup
 
-data = []
-    
-window = tk.Tk()
-window.title("Grade Check Beta")
+#Imagine having messy comments
 
-def userFriendly(version):
+def userFriendly(browser, version):
     if version == 1:
     #Change to include different browsers later (if browser = Firefox driver = webdriver.Chrome)
         if browser == ("Chrome"):
@@ -30,6 +27,3 @@ def userFriendly(version):
 
     elif version == 2:
         print("Soup verison pending")
-
-
-window.mainloop()

@@ -11,13 +11,13 @@ Step 2: Check to see what user wanted
 Step 3: Call proper functions from datagather site based on data list variable below
 """
 
-data = init.directory()
+from checklist import userPreferences
+print(userPreferences)
 
-if init.userFriendly():
-    if data[0] == True:
+if init.userFriendly(userPreferences[0], userPreferences[1]):
+    if userPreferences[0] == 1:
         print("Using the user friendly version\n")
-    #This code here will run the neccesary functions from datagather
-
+        #This code here will run the neccesary functions from datagather
 else:
     print("Using BeautifulSoup for instant data\n")
     #" "
