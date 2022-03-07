@@ -8,10 +8,10 @@ from tkinter import *
 
 #Imagine having messy comments
 
-def userFriendly(browser, version):
+def userFriendly(selectedBrowser, version):
     if version == 1:
     #Change to include different browsers later (if browser = Firefox driver = webdriver.Chrome)
-        if browser == ("Chrome"):
+        if selectedBrowser == ("Chrome"):
             #driver = webdriver.Chrome()
             #Note that an InvalidArgumentException might be due to a faulty website link
             #Currently using test site
@@ -20,9 +20,9 @@ def userFriendly(browser, version):
             print("Offline")
             return True
             
-        elif browser == ("Firefox"):
+        elif selectedBrowser == ("Firefox"):
             driver = webdriver.Firefox()
-        elif browser == ("Safari"):
+        elif selectedBrowser == ("Safari"):
             driver = webdriver.safari()
 
     elif version == 2:
