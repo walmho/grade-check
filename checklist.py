@@ -28,14 +28,38 @@ tutorial = """To use this program, first select your browser and which version o
               each option you'd like and then hit enter. Please be patient, your data will
               return soon.
 """
+def toggle(version):
+    if version == 1:
+        user.configure(bg="green")
+        instant.configure(bg="white smoke")
+        
+        if len(userPreferences) > 1:
+            userPreferences.pop()
+            userPreferences.append(version)
+        else:
+            userPreferences.append(version)
+        print(userPreferences)
+
+    elif version == 2:
+        instant.configure(bg="green")
+        user.configure(bg="white smoke")
+
+        if len(userPreferences) > 2:
+            userPreferences.pop()
+            userPreferences.append(version)
+        else:
+            userPreferences.append(version)
+        print(userPreferences)
 
 def loadHelp():
     helpMe = Button(rootWindow, text="?", font=("arial", 15), command=helpPlease)
     helpMe.grid(row=3, column=0)
 
 def chooseVersion():
-    user = Button(rootWindow, text="User friendly", font=("arial", 10), command=lambda:(userPreferences.append(1)))
-    instant = Button(rootWindow, text = "Instant data", font=("arial", 10), command=lambda:(userPreferences.append(2)))
+    global user
+    user = Button(rootWindow, text="User friendly", font=("arial", 10), command=lambda:toggle(1))
+    global instant
+    instant = Button(rootWindow, text = "Instant data", font=("arial", 10), command=lambda:toggle(2))
     user.grid(row=3, column=1)
     instant.grid(row=3, column=2)
 
@@ -51,8 +75,11 @@ def pickBrowser():
     chosenBrowser = selectionBox.get(ACTIVE)
     userPreferences.append(chosenBrowser)
     
+    #Add a series of statements to check and make sure userPreferences have been filled properly
+    nextWindow = Button(rootWindow, text="Next", font=("arial", 10), command=chooseOptions())
+    nextWindow.grid(row=0, column=2)
+    
 def helpPlease():
-    print("switching to help window")
     helpWindow = tk.Toplevel(rootWindow)
     helpWindow.title("Help")
     
@@ -61,8 +88,12 @@ def helpPlease():
     windowTutorial = Label(helpWindow, text=tutorial, font=("arial", 10))
     windowTutorial.grid(row=1, column=0)
     
-def dataOptions():
-    pass
+def chooseOptions():
+    secondaryWindow = tk.Toplevel(rootWindow)
+    secondaryWindow.title("Grade Check Beta")
+    
+    info = Label(secondaryWindow, text="Select what you would like to find: ", font=("arial", 10))
+    info.grid(row=0, column=0)
 
 loadHelp()
 chooseVersion()
