@@ -3,7 +3,7 @@
 from tkinter import *
 import tkinter as tk
 
-userPreferences = []
+userPreferences = [0, 0]
 
 rootWindow = tk.Tk()
 rootWindow.title("Grade Check Beta")
@@ -32,24 +32,12 @@ def toggle(version):
     if version == 1:
         user.configure(bg="green")
         instant.configure(bg="white smoke")
-        
-        if len(userPreferences) > 1:
-            userPreferences.pop()
-            userPreferences.append(version)
-        else:
-            userPreferences.append(version)
-        print(userPreferences)
 
     elif version == 2:
         instant.configure(bg="green")
         user.configure(bg="white smoke")
-
-        if len(userPreferences) > 2:
-            userPreferences.pop()
-            userPreferences.append(version)
-        else:
-            userPreferences.append(version)
-        print(userPreferences)
+    
+    userPreferences[1] = version
 
 def loadHelp():
     helpMe = Button(rootWindow, text="?", font=("arial", 15), command=helpPlease)
@@ -68,15 +56,19 @@ def pickBrowser():
     descriptor.grid(row=1, column=0)
     
     supportedBrowsers = ["Chrome", "Safari", "Firefox"]
+    global selectionBox 
     selectionBox = Listbox(rootWindow, listvariable=supportedBrowsers, selectmode="single", )
+
     for browser in range(len(supportedBrowsers)):
         selectionBox.insert(browser+1, supportedBrowsers[browser])
+    
     selectionBox.grid(row=2, column=0)
+
+    global chosenBrowser
     chosenBrowser = selectionBox.get(ACTIVE)
-    userPreferences.append(chosenBrowser)
     
     #Add a series of statements to check and make sure userPreferences have been filled properly
-    nextWindow = Button(rootWindow, text="Next", font=("arial", 10), command=chooseOptions())
+    nextWindow = Button(rootWindow, text="Next", font=("arial", 10), command=chooseOptions)
     nextWindow.grid(row=0, column=2)
     
 def helpPlease():
@@ -89,6 +81,8 @@ def helpPlease():
     windowTutorial.grid(row=1, column=0)
     
 def chooseOptions():
+    userPreferences[0] = selectionBox.get(ACTIVE)
+    print(userPreferences)
     secondaryWindow = tk.Toplevel(rootWindow)
     secondaryWindow.title("Grade Check Beta")
     
