@@ -3,7 +3,9 @@
 from tkinter import *
 import tkinter as tk
 
-userPreferences = [0, 0]
+#Defaults to chrome browser and instant data. Maybe later allow the user to change defaults by
+#reading and writing off a text file
+userPreferences = ["Chrome", 2]
 
 rootWindow = tk.Tk()
 rootWindow.title("Grade Check Beta")
@@ -27,6 +29,10 @@ tutorial = """To use this program, first select your browser and which version o
               Once you've selected your version and browser, a new window wil pop up. Check
               each option you'd like and then hit enter. Please be patient, your data will
               return soon.
+          
+              If you fail to submit a neccesary input, the proram will default to using Chrome
+              browser and Instant Data.
+
 """
 def toggle(version):
     if version == 1:
@@ -56,16 +62,16 @@ def pickBrowser():
     descriptor.grid(row=1, column=0)
     
     supportedBrowsers = ["Chrome", "Safari", "Firefox"]
-    global selectionBox 
-    selectionBox = Listbox(rootWindow, listvariable=supportedBrowsers, selectmode="single", )
+    global browserBox
+    browserBox = Listbox(rootWindow, listvariable=supportedBrowsers, selectmode="single", )
 
     for browser in range(len(supportedBrowsers)):
-        selectionBox.insert(browser+1, supportedBrowsers[browser])
+        browserBox.insert(browser+1, supportedBrowsers[browser])
     
-    selectionBox.grid(row=2, column=0)
+    browserBox.grid(row=2, column=0)
 
     global chosenBrowser
-    chosenBrowser = selectionBox.get(ACTIVE)
+    chosenBrowser = browserBox.get(ACTIVE)
     
     #Add a series of statements to check and make sure userPreferences have been filled properly
     nextWindow = Button(rootWindow, text="Next", font=("arial", 10), command=chooseOptions)
@@ -81,13 +87,29 @@ def helpPlease():
     windowTutorial.grid(row=1, column=0)
     
 def chooseOptions():
-    userPreferences[0] = selectionBox.get(ACTIVE)
+    userPreferences[0] = browserBox.get(ACTIVE)
     print(userPreferences)
     secondaryWindow = tk.Toplevel(rootWindow)
     secondaryWindow.title("Grade Check Beta")
     
-    info = Label(secondaryWindow, text="Select what you would like to find: ", font=("arial", 10))
+    info = Label(secondaryWindow, text="Select what you would like to find: ", font=("arial", 15))
     info.grid(row=0, column=0)
+    
+    #When certain boxes are checked, reveal / show corresponding boxes prompting user for login
+    choices = ["Calculate GPA", "List Assignments (Google Classroom)", "Check Email"]
+    for i in range(len(choices)):
+        selectionBox = Checkbutton(secondaryWindow, text=choices[i], variable=i, justify=LEFT, command=lambda:addChoice(choices[i]))
+        selectionBox.grid(row=i+1, column=0)
+    
+    #Unfinished corresponding entry boxes. THESE ARE UNGRIDDED
+    classroomLogin = Entry(secondaryWindow)
+    studentVueLogin = Entry(secondaryWindow)
+    
+#this var name is awful, change it later
+def addChoice(variable):
+    if variable not in userPreferences:
+        userPreferences.append(variable)
+    print(userPreferences)
 
 loadHelp()
 chooseVersion()
