@@ -89,6 +89,7 @@ def helpPlease():
 def chooseOptions():
     userPreferences[0] = browserBox.get(ACTIVE)
     print(userPreferences)
+    #Destroy previsou window once you're brave enough
     secondaryWindow = tk.Toplevel(rootWindow)
     secondaryWindow.title("Grade Check Beta")
     
@@ -97,19 +98,31 @@ def chooseOptions():
     
     #When certain boxes are checked, reveal / show corresponding boxes prompting user for login
     choices = ["Calculate GPA", "List Assignments (Google Classroom)", "Check Email"]
+    varNames = ["grade", "assignList", "email"]
     for i in range(len(choices)):
-        selectionBox = Checkbutton(secondaryWindow, text=choices[i], variable=i, justify=LEFT, command=lambda:addChoice(choices[i]))
+        print("Creating box {} with corresponding variable {}...".format(i, choices[i]))
+        selectionBox = Checkbutton(secondaryWindow, text=choices[i], variable=choices[i], justify=LEFT)
         selectionBox.grid(row=i+1, column=0)
+        
+    loginWindow = Button(secondaryWindow, text="Next", command=lambda:entries(varNames.get()))
+    loginWindow.grid(row=i+2, column=0)
+
+def entries(selections):
+    print(selections)
+    
+    thirdWindow = tk.Toplevel(secondaryWindow)
+    thirdWindow.title("Grade Check Beta")
     
     #Unfinished corresponding entry boxes. THESE ARE UNGRIDDED
-    classroomLogin = Entry(secondaryWindow)
-    studentVueLogin = Entry(secondaryWindow)
+    classroomLogin = Entry(thirdWindow, length=30)
+    studentVueLogin = Entry(thirdWindow, length=30)
+    classroomPassword = Entry(thirdWindow, length=30)
+    studentVuePassword = Entry(thirdWindow, length=30)
     
-#this var name is awful, change it later
-def addChoice(variable):
-    if variable not in userPreferences:
-        userPreferences.append(variable)
-    print(userPreferences)
+    classroomLogin.grid(row=0, column=0)
+    studentVueLogin.grid(row=1, column=0)
+    classroomPassword.grid(row=2, column=0)
+    studentVuePassword.grid(row=3, column=0)
 
 loadHelp()
 chooseVersion()
