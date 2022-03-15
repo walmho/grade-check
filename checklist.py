@@ -78,7 +78,7 @@ def pickBrowser():
     nextWindow.grid(row=0, column=2)
     
 def helpPlease():
-    helpWindow = tk.Toplevel(rootWindow)
+    helpWindow = Toplevel(rootWindow)
     helpWindow.title("Help")
     
     overview = Label(helpWindow, text=welcome, font=("arial", 10))
@@ -98,31 +98,42 @@ def chooseOptions():
     
     #When certain boxes are checked, reveal / show corresponding boxes prompting user for login
     choices = ["Calculate GPA", "List Assignments (Google Classroom)", "Check Email"]
-    varNames = ["grade", "assignList", "email"]
+    varNames = []
+    selected = {}
+    
+    #automate next line with loop based on choices list later
     for i in range(len(choices)):
-        print("Creating box {} with corresponding variable {}...".format(i, choices[i]))
-        selectionBox = Checkbutton(secondaryWindow, text=choices[i], variable=choices[i], justify=LEFT)
+        varNames.append(IntVar())
+        selected[choices[i]] = varNames[i]
+    
+    for i in range(len(choices)):
+        print("Creating box {} with corresponding variable {}...".format(i, varNames[i]))
+        #Later, make the command show the entry boxes in entries() function
+        selectionBox = Checkbutton(secondaryWindow, text=choices[i], variable=varNames[i], justify=LEFT, command=lambda:addOption(selected, varNames()))
         selectionBox.grid(row=i+1, column=0)
-        
-    loginWindow = Button(secondaryWindow, text="Next", command=lambda:entries(varNames.get()))
+
+    loginWindow = Button(secondaryWindow, text="Next", command=lambda:entries())
     loginWindow.grid(row=i+2, column=0)
 
-def entries(selections):
-    print(selections)
+def addOption(selected, varNames):
+    print(selected(varNames[i].get()))
+
+def entries(selectedVars):
+    # print(selectedVars)
     
-    thirdWindow = tk.Toplevel(secondaryWindow)
-    thirdWindow.title("Grade Check Beta")
+    # thirdWindow = tk.Toplevel(rootWindow)
+    # thirdWindow.title("Grade Check Beta")
     
-    #Unfinished corresponding entry boxes. THESE ARE UNGRIDDED
-    classroomLogin = Entry(thirdWindow, length=30)
-    studentVueLogin = Entry(thirdWindow, length=30)
-    classroomPassword = Entry(thirdWindow, length=30)
-    studentVuePassword = Entry(thirdWindow, length=30)
+    # #Unfinished corresponding entry boxes. THESE ARE UNGRIDDED
+    # classroomLogin = Entry(thirdWindow, width=30)
+    # studentVueLogin = Entry(thirdWindow, width=30)
+    # classroomPassword = Entry(thirdWindow, width=30)
+    # studentVuePassword = Entry(thirdWindow, width=30)
     
-    classroomLogin.grid(row=0, column=0)
-    studentVueLogin.grid(row=1, column=0)
-    classroomPassword.grid(row=2, column=0)
-    studentVuePassword.grid(row=3, column=0)
+    # classroomLogin.grid(row=0, column=0)
+    # studentVueLogin.grid(row=1, column=0)
+    # classroomPassword.grid(row=2, column=0)
+    # studentVuePassword.grid(row=3, column=0)
 
 loadHelp()
 chooseVersion()
