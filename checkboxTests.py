@@ -36,7 +36,7 @@ def normalOptions():
 def returnSelected(selectionDict):
     for i in range(len(selectionDict)):
         key = getKey(selectionDict, i)
-        chosen = selectionDict[key].get()
+        chosen = selectionDict.get(selectionDict[key])
 
         if chosen:
             print("The user likes {}.".format(key))
@@ -54,16 +54,26 @@ def getKey(dictionary, n=0):
 
 #My attempt at doing the above with a loop to make it shorter
 def optimizedOptions():
+    #Add try and excepts for index errors, in case choices and intVars don't line up for some reason
     choices = ["apple", "orange", "grape", "pear"]
     #Tk intvars gather whether or not an item is selected
     intVars = []
     for i in range(len(choices)):
         intVars.append(tk.IntVar)
 
-    items = loadDictionary(intVars, choices)
-    print(items)
+    #dictionary is needed for returning selected options
+    selections = loadDictionary(intVars, choices)
+    print(selections)
 
-#Given itemes and keys, return a dictionary
+    #loop that creates and grids options in tkinter using the dictionary
+    for i in range(len(choices)):
+        temp = tk.Checkbutton(r, text=choices[i], variable=intVars[i], justify = tk.CENTER)
+        temp.grid(row=i, column=0)
+
+    finish = tk.Button(r, text="Return Selected", font=("arial", 10), command=lambda:returnSelected(selections))
+    finish.grid(row=i+1, column=0)
+
+#Given itemes and keys, return a dictionary - might not need this but it is a useful function 
 def loadDictionary(items, keys):
     if len(items) != len(keys):
         print("ERROR: loadDictionary(items, keys) Too many keys / items")
