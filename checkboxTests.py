@@ -1,3 +1,4 @@
+from random import choices
 import tkinter as tk
 from typing import OrderedDict
 
@@ -6,8 +7,6 @@ r.title("Basic Checklist")
 
 #How checkbox normally works without the use of a loop. This is what it would look like if I did each function selection manually
 def normalOptions():
-
-
     #Variable has to be an IntVar.
     appleVar = tk.IntVar()
     apple = tk.Checkbutton(r, text="Apples", variable=appleVar, justify=tk.CENTER)
@@ -53,6 +52,29 @@ def getKey(dictionary, n=0):
             return key
     raise IndexError("dict index out of range")
 
-normalOptions()
+#My attempt at doing the above with a loop to make it shorter
+def optimizedOptions():
+    choices = ["apple", "orange", "grape", "pear"]
+    #Tk intvars gather whether or not an item is selected
+    intVars = []
+    for i in range(len(choices)):
+        intVars.append(tk.IntVar)
+
+    items = loadDictionary(intVars, choices)
+    print(items)
+
+#Given itemes and keys, return a dictionary
+def loadDictionary(items, keys):
+    if len(items) != len(keys):
+        print("ERROR: loadDictionary(items, keys) Too many keys / items")
+        return
+
+    dictionary = {}
+    for i in range(len(items)):
+        dictionary[keys[i]] = items[i]
+
+    return dictionary
+
+optimizedOptions()
 
 r.mainloop()
