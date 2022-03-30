@@ -29,6 +29,7 @@ def normalOptions():
     #selections = [appleVar, orangeVar, pearVar, grapeVar]
 
     selections = {"apple":appleVar, "orange":orangeVar, "pear":pearVar, "grape":grapeVar}
+    print(selections)
 
     finish = tk.Button(r, text="Return Selected", font=("arial", 10), command=lambda:returnSelected(selections))
     finish.grid(row=4, column=0)
@@ -36,7 +37,7 @@ def normalOptions():
 def returnSelected(selectionDict):
     for i in range(len(selectionDict)):
         key = getKey(selectionDict, i)
-        chosen = selectionDict.get(selectionDict[key])
+        chosen = selectionDict[key].get()
 
         if chosen:
             print("The user likes {}.".format(key))
@@ -59,7 +60,7 @@ def optimizedOptions():
     #Tk intvars gather whether or not an item is selected
     intVars = []
     for i in range(len(choices)):
-        intVars.append(tk.IntVar)
+        intVars.append(tk.IntVar())
 
     #dictionary is needed for returning selected options
     selections = loadDictionary(intVars, choices)
