@@ -34,26 +34,7 @@ def normalOptions():
     finish = tk.Button(r, text="Return Selected", font=("arial", 10), command=lambda:returnSelected(selections))
     finish.grid(row=4, column=0)
 
-def returnSelected(selectionDict):
-    for i in range(len(selectionDict)):
-        key = getKey(selectionDict, i)
-        chosen = selectionDict[key].get()
-
-        if chosen:
-            print("The user likes {}.".format(key))
-        else:
-            print("The user does not like {}".format(key))
-
-#Thank you stack overflow for telling me how to index dictionaries
-def getKey(dictionary, n=0):
-    if n < 0:
-        n += len(dictionary)
-    for i, key in enumerate(dictionary.keys()):
-        if i == n:
-            return key
-    raise IndexError("dict index out of range")
-
-#My attempt at doing the above with a loop to make it shorter
+#Looped version - this will get more efficient the more features that I add
 def optimizedOptions():
     #Add try and excepts for index errors, in case choices and intVars don't line up for some reason
     choices = ["apple", "orange", "grape", "pear"]
@@ -74,7 +55,7 @@ def optimizedOptions():
     finish = tk.Button(r, text="Return Selected", font=("arial", 10), command=lambda:returnSelected(selections))
     finish.grid(row=i+1, column=0)
 
-#Given itemes and keys, return a dictionary - might not need this but it is a useful function 
+#Given items and keys, return a dictionary - might not need this but it is a useful function 
 def loadDictionary(items, keys):
     if len(items) != len(keys):
         print("ERROR: loadDictionary(items, keys) Too many keys / items")
@@ -85,6 +66,26 @@ def loadDictionary(items, keys):
         dictionary[keys[i]] = items[i]
 
     return dictionary
+
+#Given a dictionary(name, corresponding variable name) return the positive entries
+def returnSelected(selectionDict):
+    for i in range(len(selectionDict)):
+        key = getKey(selectionDict, i)
+        chosen = selectionDict[key].get()
+
+        if chosen:
+            print("The user likes {}.".format(key))
+        else:
+            print("The user does not like {}".format(key))
+
+#Thank you stack overflow for telling me how to index dictionaries
+def getKey(dictionary, n=0):
+    if n < 0:
+        n += len(dictionary)
+    for i, key in enumerate(dictionary.keys()):
+        if i == n:
+            return key
+    raise IndexError("dict index out of range")
 
 optimizedOptions()
 

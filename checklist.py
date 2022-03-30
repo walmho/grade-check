@@ -32,7 +32,6 @@ tutorial = """To use this program, first select your browser and which version o
           
               If you fail to submit a neccesary input, the proram will default to using Chrome
               browser and Instant Data.
-
 """
 def toggle(version):
     if version == 1:
@@ -89,7 +88,7 @@ def helpPlease():
 def chooseOptions():
     userPreferences[0] = browserBox.get(ACTIVE)
     print(userPreferences)
-    #Destroy previsou window once you're brave enough
+    #Destroy previous window once you're brave enough
     secondaryWindow = tk.Toplevel(rootWindow)
     secondaryWindow.title("Grade Check Beta")
     
@@ -97,43 +96,57 @@ def chooseOptions():
     info.grid(row=0, column=0)
     
     #When certain boxes are checked, reveal / show corresponding boxes prompting user for login
+    #Add try and excepts for index errors, in case choices and intVars don't line up for some reason
     choices = ["Calculate GPA", "List Assignments (Google Classroom)", "Check Email"]
-    varNames = []
-    selected = {}
-    
-    #automate next line with loop based on choices list later
-    for i in range(len(choices)):
-        varNames.append(IntVar())
-        selected[choices[i]] = varNames[i]
+    intVars = []
     
     for i in range(len(choices)):
-        print("Creating box {} with corresponding variable {}...".format(i, varNames[i]))
-        #Later, make the command show the entry boxes in entries() function
-        selectionBox = Checkbutton(secondaryWindow, text=choices[i], variable=varNames[i], justify=LEFT, command=lambda:addOption(selected, varNames()))
-        selectionBox.grid(row=i+1, column=0)
+        intVars.append(tk.IntVar())
 
-    loginWindow = Button(secondaryWindow, text="Next", command=lambda:entries())
-    loginWindow.grid(row=i+2, column=0)
+    #dictionary is needed for returning selected options
+    selections = loadDictionary(intVars, choices)
+    #print(selections)
 
-def addOption(selected, varNames):
-    print(selected(varNames[i].get()))
+    #loop that creates and grids options in tkinter using the dictionary
+    for i in range(len(choices)):
+        temp = tk.Checkbutton(secondaryWindow, text=choices[i], variable=intVars[i], justify = tk.CENTER)
+        temp.grid(row=i+1, column=0)
 
-def entries(selectedVars):
-    # print(selectedVars)
-    
-    # thirdWindow = tk.Toplevel(rootWindow)
-    # thirdWindow.title("Grade Check Beta")
-    
-    # #Unfinished corresponding entry boxes. THESE ARE UNGRIDDED
-    # classroomLogin = Entry(thirdWindow, width=30)
-    # studentVueLogin = Entry(thirdWindow, width=30)
-    # classroomPassword = Entry(thirdWindow, width=30)
-    # studentVuePassword = Entry(thirdWindow, width=30)
-    
-    # classroomLogin.grid(row=0, column=0)
-    # studentVueLogin.grid(row=1, column=0)
-    # classroomPassword.grid(row=2, column=0)
-    # studentVuePassword.grid(row=3, column=0)
+    finish = tk.Button(secondaryWindow, text="Return Selected", font=("arial", 10), command=lambda:returnSelected(selections))
+    finish.grid(row=i+2, column=0)
+
+#Given items and keys, return a dictionary - might not need this but it is a useful function 
+def loadDictionary(items, keys):
+    if len(items) != len(keys):
+        print("ERROR: loadDictionary(items, keys) Too many keys / items")
+        return
+
+    dictionary = {}
+    for i in range(len(items)):
+        dictionary[keys[i]] = items[i]
+
+    return dictionary
+
+#All of the below are functions for chooseOptions() loop automation
+#Given a dictionary(name, corresponding variable name) return the positive entries
+def returnSelected(selectionDict):
+    for i in range(len(selectionDict)):
+        key = getKey(selectionDict, i)
+        chosen = selectionDict[key].get()
+
+        if chosen:
+            print("The user selected {}.".format(key))
+        else:
+            print("The user did not select {}".format(key))
+
+#Thank you stack overflow for telling me how to index dictionaries
+def getKey(dictionary, n=0):
+    if n < 0:
+        n += len(dictionary)
+    for i, key in enumerate(dictionary.keys()):
+        if i == n:
+            return key
+    raise IndexError("dict index out of range")
 
 loadHelp()
 chooseVersion()
