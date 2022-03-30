@@ -1,7 +1,7 @@
-import matplotlib
-import selenium
-import numpy as np
-from selenium import webdriver
+#import matplotlib
+#import selenium
+#import numpy as np
+#from selenium import webdriver
 import tkinter as tk
 from tkinter import *
 #import BeautifulSoup

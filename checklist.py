@@ -87,7 +87,6 @@ def helpPlease():
     
 def chooseOptions():
     userPreferences[0] = browserBox.get(ACTIVE)
-    print(userPreferences)
     #Destroy previous window once you're brave enough
     secondaryWindow = tk.Toplevel(rootWindow)
     secondaryWindow.title("Grade Check Beta")
@@ -105,7 +104,6 @@ def chooseOptions():
 
     #dictionary is needed for returning selected options
     selections = loadDictionary(intVars, choices)
-    #print(selections)
 
     #loop that creates and grids options in tkinter using the dictionary
     for i in range(len(choices)):
@@ -135,9 +133,8 @@ def returnSelected(selectionDict):
         chosen = selectionDict[key].get()
 
         if chosen:
-            print("The user selected {}.".format(key))
-        else:
-            print("The user did not select {}".format(key))
+            #print("The user selected {}.".format(key))
+            userPreferences.append(key)
 
 #Thank you stack overflow for telling me how to index dictionaries
 def getKey(dictionary, n=0):

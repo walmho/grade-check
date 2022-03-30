@@ -45,7 +45,6 @@ def optimizedOptions():
 
     #dictionary is needed for returning selected options
     selections = loadDictionary(intVars, choices)
-    print(selections)
 
     #loop that creates and grids options in tkinter using the dictionary
     for i in range(len(choices)):
