@@ -168,16 +168,19 @@ def getKey(dictionary, n=0):
     raise IndexError("dict index out of range")
 
 def terminateWindows(loginList):
-    print(userPreferences)
     print(loginList)
 
     for username in range(len(loginList)):
+        print("\ngetting the {}th value from {}".format(username, loginList))
+        print("I got this: {}".format(loginList[username].get()))
         userPreferences.append(loginList[username].get())
+    print(userPreferences)
 
-    print(userPreferences)
-    rootWindow.destroy()
-    secondaryWindow.destroy()
-    print(userPreferences)
+    try:
+        rootWindow.destroy()
+        secondaryWindow.destroy()
+    except TclError:
+        print("\nProblems destroying application I guess")
 
     return userPreferences
 
