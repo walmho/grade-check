@@ -88,6 +88,7 @@ def helpPlease():
 def chooseOptions():
     userPreferences[0] = browserBox.get(ACTIVE)
     #Destroy previous window once you're brave enough
+    global secondaryWindow
     secondaryWindow = tk.Toplevel(rootWindow)
     secondaryWindow.title("Grade Check Beta")
     
@@ -110,20 +111,27 @@ def chooseOptions():
         temp = tk.Checkbutton(secondaryWindow, text=choices[i], variable=intVars[i], justify = tk.CENTER)
         temp.grid(row=i+1, column=0)
 
-    finish = tk.Button(secondaryWindow, text="Return Selected", font=("arial", 10), command=lambda:returnSelected(selections))
+    global finish
+    finish = tk.Button(secondaryWindow, text="Continue", font=("arial", 10), command=lambda:returnSelected(selections))
     finish.grid(row=i+2, column=0)
 
-#Given items and keys, return a dictionary - might not need this but it is a useful function 
-def loadDictionary(items, keys):
-    if len(items) != len(keys):
-        print("ERROR: loadDictionary(items, keys) Too many keys / items")
-        return
+def getLoginInfo():
+    loginInfo = []
+    for selection in range(2, len(userPreferences)):
+        #This is super clunky, later, add a separate list that corresponds to the needed logins that is a lot more specific (translate "GPA" to "oh, I need to look at studentVUE")
+        info = Label(secondaryWindow, text="Enter your username and password login for {}".format(userPreferences[selection]))
+        info.grid(row=selection, column=2)
 
-    dictionary = {}
-    for i in range(len(items)):
-        dictionary[keys[i]] = items[i]
+        login = Entry(secondaryWindow, width=30, border=5)
+        login.grid(row=selection, column=3)
+        loginInfo.append(login)
 
-    return dictionary
+        password = Entry(secondaryWindow, width=30, border=5, show="*")
+        password.grid(row=selection, column=4)
+        loginInfo.append(login)
+
+    finish = tk.Button(secondaryWindow, text="Gather Data!", font=("arial", 10), command=lambda:terminateWindows(loginInfo))
+    finish.grid(row=selection+1, column=0)
 
 #All of the below are functions for chooseOptions() loop automation
 #Given a dictionary(name, corresponding variable name) return the positive entries
@@ -135,6 +143,20 @@ def returnSelected(selectionDict):
         if chosen:
             #print("The user selected {}.".format(key))
             userPreferences.append(key)
+    finish.destroy()
+    getLoginInfo()
+
+#Given items and keys, return a dictionary - might not need this but it is a useful function 
+def loadDictionary(items, keys):
+    if len(items) != len(keys):
+        print("ERROR: loadDictionary(items, keys) Too many keys / items")
+        return
+
+    dictionary = {}
+    for i in range(len(items)):
+        dictionary[keys[i]] = items[i]
+
+    return dictionary 
 
 #Thank you stack overflow for telling me how to index dictionaries
 def getKey(dictionary, n=0):
@@ -144,6 +166,20 @@ def getKey(dictionary, n=0):
         if i == n:
             return key
     raise IndexError("dict index out of range")
+
+def terminateWindows(loginList):
+    print(userPreferences)
+    print(loginList)
+
+    for username in range(len(loginList)):
+        userPreferences.append(loginList[username].get())
+
+    print(userPreferences)
+    rootWindow.destroy()
+    secondaryWindow.destroy()
+    print(userPreferences)
+
+    return userPreferences
 
 loadHelp()
 chooseVersion()

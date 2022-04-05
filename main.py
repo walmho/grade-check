@@ -19,4 +19,4 @@ else:
     print("Using BeautifulSoup for instant data\n")
     #" "
 
-print(userPreferences)
+#print(userPreferences)

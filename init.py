@@ -20,12 +20,12 @@ def userFriendly(selectedBrowser, version):
             print("Offline")
             return True
             
-        elif selectedBrowser == ("Firefox"):
-            driver = webdriver.Firefox()
-        elif selectedBrowser == ("Safari"):
-            driver = webdriver.safari()
-        elif selectedBrowser == ("Edge"):
-            driver = webdriver.edge()
+        # elif selectedBrowser == ("Firefox"):
+        #     driver = webdriver.Firefox()
+        # elif selectedBrowser == ("Safari"):
+        #     driver = webdriver.safari()
+        # elif selectedBrowser == ("Edge"):
+        #     driver = webdriver.edge()
 
     elif version == 2:
         print("Soup verison pending")
