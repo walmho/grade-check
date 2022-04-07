@@ -117,18 +117,34 @@ def chooseOptions():
 
 def getLoginInfo():
     loginInfo = []
-    for selection in range(2, len(userPreferences)):
+    proxy = userPreferences[2:]
+    print(proxy)
+    print(userPreferences)
+
+    #try:
+    for selection in range(len(userPreferences)*2, 2):
+        print("Currently running iteration {} of {}".format(selection, len(userPreferences)))
         #This is super clunky, later, add a separate list that corresponds to the needed logins that is a lot more specific (translate "GPA" to "oh, I need to look at studentVUE")
+        print("\nmaking info label for {}".format(userPreferences[selection]))
         info = Label(secondaryWindow, text="Enter your username and password login for {}".format(userPreferences[selection]))
-        info.grid(row=selection, column=2)
+        print("griding info at ({},{})".format(int(selection/2), 2))
+        info.grid(row=int(selection/2), column=2)
 
+        print("\ncreating login entry for ''.")
         login = Entry(secondaryWindow, width=30, border=5)
-        login.grid(row=selection, column=3)
+        print("griding login at ({},{})".format(selection, 3))
+        login.grid(row=selection-1, column=3)
         loginInfo.append(login)
 
+        #currently having problems getting passcode, username is just returend twice in userpreferences list
+        print("\ncreating password entry for ''.")
         password = Entry(secondaryWindow, width=30, border=5, show="*")
-        password.grid(row=selection, column=4)
+        print("griding password at ({},{})".format(selection, 3))
+        password.grid(row=selection, column=3)
         loginInfo.append(login)
+
+    #except IndexError:
+        #pass
 
     finish = tk.Button(secondaryWindow, text="Gather Data!", font=("arial", 10), command=lambda:terminateWindows(loginInfo))
     finish.grid(row=selection+1, column=0)
