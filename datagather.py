@@ -6,3 +6,5 @@ intake requested data from init.py and be used in main.py (I hope)
 """ 
 
 #This .py file should ONLY contain functions (anda import lines)
+#from selenium import webdriver
+#import chromedriver
