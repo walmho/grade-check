@@ -128,7 +128,7 @@ def getLoginInfo():
 
         password = Entry(secondaryWindow, width=30, border=5, show="*")
         password.grid(row=selection, column=4)
-        loginInfo.append(login)
+        loginInfo.append(password)
 
     finish = tk.Button(secondaryWindow, text="Gather Data!", font=("arial", 10), command=lambda:terminateWindows(loginInfo))
     finish.grid(row=selection+2, column=0)
@@ -171,10 +171,9 @@ def terminateWindows(loginList):
     print(loginList)
 
     for username in range(len(loginList)):
-        print("\ngetting the {}th value from {}".format(username, loginList))
+        print("\ngetting the {}th value from {}".format(username, "entries"))
         print("I got this: {}".format(loginList[username].get()))
         userPreferences.append(loginList[username].get())
-    print(userPreferences)
 
     try:
         rootWindow.destroy()
