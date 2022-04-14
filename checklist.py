@@ -131,7 +131,7 @@ def getLoginInfo():
         loginInfo.append(login)
 
     finish = tk.Button(secondaryWindow, text="Gather Data!", font=("arial", 10), command=lambda:terminateWindows(loginInfo))
-    finish.grid(row=selection+1, column=0)
+    finish.grid(row=selection+2, column=0)
 
 #All of the below are functions for chooseOptions() loop automation
 #Given a dictionary(name, corresponding variable name) return the positive entries
