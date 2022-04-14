@@ -10,6 +10,10 @@ userPreferences = ["Chrome", 2]
 rootWindow = tk.Tk()
 rootWindow.title("Grade Check Beta")
 
+secondaryWindow = tk.Toplevel(rootWindow)
+secondaryWindow.title("Grade Check Beta")
+secondaryWindow.withdraw()
+
 #tkinter window creation
 #Consider adding padding a lot later in development
 title = Label(rootWindow, text="Grade Check Beta 1.0", font=("arial", 25))
@@ -33,7 +37,7 @@ tutorial = """To use this program, first select your browser and which version o
               If you fail to submit a neccesary input, the proram will default to using Chrome
               browser and Instant Data.
 """
-def toggle(version):
+def toggle(version, user, instant):
     if version == 1:
         user.configure(bg="green")
         instant.configure(bg="white smoke")
@@ -49,10 +53,8 @@ def loadHelp():
     helpMe.grid(row=3, column=0)
 
 def chooseVersion():
-    global user
-    user = Button(rootWindow, text="User friendly", font=("arial", 10), command=lambda:toggle(1))
-    global instant
-    instant = Button(rootWindow, text = "Instant data", font=("arial", 10), command=lambda:toggle(2))
+    user = Button(rootWindow, text="User friendly", font=("arial", 10), command=lambda:toggle(1, user, instant))
+    instant = Button(rootWindow, text = "Instant data", font=("arial", 10), command=lambda:toggle(2, user, instant))
     user.grid(row=3, column=1)
     instant.grid(row=3, column=2)
 
@@ -61,7 +63,6 @@ def pickBrowser():
     descriptor.grid(row=1, column=0)
     
     supportedBrowsers = ["Chrome", "Safari", "Firefox"]
-    global browserBox
     browserBox = Listbox(rootWindow, listvariable=supportedBrowsers, selectmode="single", )
 
     for browser in range(len(supportedBrowsers)):
@@ -69,11 +70,10 @@ def pickBrowser():
     
     browserBox.grid(row=2, column=0)
 
-    global chosenBrowser
     chosenBrowser = browserBox.get(ACTIVE)
     
     #Add a series of statements to check and make sure userPreferences have been filled properly
-    nextWindow = Button(rootWindow, text="Next", font=("arial", 10), command=chooseOptions)
+    nextWindow = Button(rootWindow, text="Next", font=("arial", 10), command=lambda:chooseOptions(chosenBrowser))
     nextWindow.grid(row=0, column=2)
     
 def helpPlease():
@@ -85,13 +85,11 @@ def helpPlease():
     windowTutorial = Label(helpWindow, text=tutorial, font=("arial", 10))
     windowTutorial.grid(row=1, column=0)
     
-def chooseOptions():
-    userPreferences[0] = browserBox.get(ACTIVE)
-    #Destroy previous window once you're brave enough
-    global secondaryWindow
-    secondaryWindow = tk.Toplevel(rootWindow)
-    secondaryWindow.title("Grade Check Beta")
-    
+def chooseOptions(chosenBrowser):
+    userPreferences[0] = chosenBrowser
+    #unhides window
+    secondaryWindow.deiconify()
+
     info = Label(secondaryWindow, text="Select what you would like to find: ", font=("arial", 15))
     info.grid(row=0, column=0)
     
@@ -111,8 +109,7 @@ def chooseOptions():
         temp = tk.Checkbutton(secondaryWindow, text=choices[i], variable=intVars[i], justify = tk.CENTER)
         temp.grid(row=i+1, column=0)
 
-    global finish
-    finish = tk.Button(secondaryWindow, text="Continue", font=("arial", 10), command=lambda:returnSelected(selections))
+    finish = tk.Button(secondaryWindow, text="Continue", font=("arial", 10), command=lambda:returnSelected(selections, finish))
     finish.grid(row=i+2, column=0)
 
 def getLoginInfo():
@@ -135,7 +132,7 @@ def getLoginInfo():
 
 #All of the below are functions for chooseOptions() loop automation
 #Given a dictionary(name, corresponding variable name) return the positive entries
-def returnSelected(selectionDict):
+def returnSelected(selectionDict, finishedButton):
     for i in range(len(selectionDict)):
         key = getKey(selectionDict, i)
         chosen = selectionDict[key].get()
@@ -143,7 +140,7 @@ def returnSelected(selectionDict):
         if chosen:
             #print("The user selected {}.".format(key))
             userPreferences.append(key)
-    finish.destroy()
+    finishedButton.destroy()
     getLoginInfo()
 
 #Given items and keys, return a dictionary - might not need this but it is a useful function 
