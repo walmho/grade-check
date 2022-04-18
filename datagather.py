@@ -14,20 +14,23 @@ import time
 driver = webdriver.Chrome(ChromeDriverManager().install())
 
 #Might want to change all URL links to be stored in functions
-def newWindow():
+#UF stands for user-friendly. these functions aren't called for the beautiful soup version.
+def newWindow_UF():
     #init is acting weird for calling functions from it. Once again, default the driver to chrome for now
     #init.driver.get("https://www.coolmathgames.com/")
     driver.get("https://google.com")
 
-def googleClassroom(username, password):
+def googleClassroom_UF(username, password):
     driver.execute_script("window.open('');")
     driver.switch_to.window(driver.window_handles[1])
     driver.get("https://classroom.google.com/u/0/h")
     
+    #logging in
+    emailEntry = driver.find_element_by_id("identifierId")
+    emailEntry.send_keys()
     
     
-    
-newWindow()
-googleClassroom("not needed", "right now")
+newWindow_UF()
+googleClassroom_UF("joner689@hsd.k12.or.us", "right now")
 time.sleep(3)
-driver.quit()
+#driver.quit()
