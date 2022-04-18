@@ -14,7 +14,7 @@ from checklist import userPreferences
 if init.userFriendly(userPreferences[0], userPreferences[1]):
     if userPreferences[0] == 1:
         print("Using the user friendly version\n")
-        #This code here will run the neccesary functions from datagather
+        dt.newWindow()
 else:
     print("Using BeautifulSoup for instant data\n")
     #" "
