@@ -178,6 +178,7 @@ def terminateWindows(loginList):
     except TclError:
         print("\nProblems destroying application I guess")
 
+    print(userPreferences)
     return userPreferences
 
 loadHelp()

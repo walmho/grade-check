@@ -18,19 +18,27 @@ driver = webdriver.Chrome(ChromeDriverManager().install())
 def newWindow_UF():
     #init is acting weird for calling functions from it. Once again, default the driver to chrome for now
     #init.driver.get("https://www.coolmathgames.com/")
+    
+    #If this project ever becomes big enough I might make a small website for it just to have something to open as default...
     driver.get("https://google.com")
 
 def googleClassroom_UF(username, password):
+    #Opening new tab
     driver.execute_script("window.open('');")
     driver.switch_to.window(driver.window_handles[1])
     driver.get("https://classroom.google.com/u/0/h")
     
     #logging in
     emailEntry = driver.find_element_by_id("identifierId")
-    emailEntry.send_keys()
+    emailEntry.send_keys(username)
+    nextButton = driver.find_element_by_class_name("VfPpkd-vQzf8d")
+    nextButton.click()
     
+    #Throw in some exceptions here if it's a non-google account
+    
+    #passwordEntry = driver.find_element_by_id()
     
 newWindow_UF()
-googleClassroom_UF("joner689@hsd.k12.or.us", "right now")
-time.sleep(3)
-#driver.quit()
+googleClassroom_UF("jones.ryan.t.01@gmail.com", "right now")
+time.sleep(10)
+driver.quit()
