@@ -34,6 +34,7 @@ def googleClassroom_UF(username, password):
     nextButton = driver.find_element_by_class_name("VfPpkd-vQzf8d")
     nextButton.click()
     
+<<<<<<< HEAD
     #Throw in some exceptions here if it's a non-google account
     
     #passwordEntry = driver.find_element_by_id()
@@ -42,3 +43,35 @@ newWindow_UF()
 googleClassroom_UF("jones.ryan.t.01@gmail.com", "right now")
 time.sleep(10)
 driver.quit()
+=======
+    #To allow for time for the page to load
+    time.sleep(3)
+    
+    gmailDomain = "@gmail.com"
+    if gmailDomain not in email:
+        #login again in the outlook portal. Change this code to narrow down which domain specifically is being used.
+        #code currently only supports @hsd and @gmail
+        emailEntry = driver.find_element_by_id("i0116")
+        emailEntry.send_keys(email)
+        nextButton = driver.find_element_by_id("idSIButton9")
+        nextButton.click()
+        
+        time.sleep(3)
+        
+        passwordEntry = driver.find_element_by_id("i0118")
+        passwordEntry.send_keys(password)
+        nextButton = driver.find_element_by_id("idSIButton9")
+        nextButton.click()
+        
+        #find better var name - clicking on the "no" button when asked if the code would like to stay signed in
+        noLoginStay = driver.find_element_by_id("idBtn_Back")
+        noLoginStay.click()
+        
+        time.sleep(4)
+        
+        verify = driver.find_element_by_class_name("VfPpkd-vQzf8d")
+        verify.click()
+   
+newWindow_UF()
+googleClassroom_UF("joner689@hsd.k12.or.us", "PASSWORDWOULDBEHERE!")
+>>>>>>> 691f728... Updated a few things
