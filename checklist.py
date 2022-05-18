@@ -165,11 +165,9 @@ def getKey(dictionary, n=0):
     raise IndexError("dict index out of range")
 
 def terminateWindows(loginList):
-    print(loginList)
-
     for username in range(len(loginList)):
-        print("\ngetting the {}th value from {}".format(username, "entries"))
-        print("I got this: {}".format(loginList[username].get()))
+        #print("\ngetting the {}th value from {}".format(username, "entries"))
+        #print("I got this: {}".format(loginList[username].get()))
         userPreferences.append(loginList[username].get())
 
     try:
@@ -178,7 +176,6 @@ def terminateWindows(loginList):
     except TclError:
         print("\nProblems destroying application I guess")
 
-    print(userPreferences)
     return userPreferences
 
 loadHelp()
