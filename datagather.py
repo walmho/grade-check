@@ -60,6 +60,7 @@ def studentVUE_UF(username, password, driver):
     
     nextButton = driver.find_element_by_id("ctl00_MainContent_Submit1")
     nextButton.click()
+    return
     
 def emailCheck_UF(username, password, driver):
     #Same intuitive issue with studentVUE
