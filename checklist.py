@@ -5,7 +5,8 @@ import tkinter as tk
 
 #Defaults to chrome browser and instant data. Maybe later allow the user to change defaults by
 #reading and writing off a text file
-userPreferences = ["Chrome", 2]
+#userPreferences = ["Chrome", 2]
+userPreferences = []
 
 rootWindow = tk.Tk()
 rootWindow.title("Grade Check Beta")
@@ -62,7 +63,7 @@ def pickBrowser():
     descriptor = Label(rootWindow, text="Choose browser: ", font=("arial", 10))
     descriptor.grid(row=1, column=0)
     
-    supportedBrowsers = ["Chrome", "Safari", "Firefox"]
+    supportedBrowsers = ["Chrome", "Safari", "Firefox", "Edge"]
     browserBox = Listbox(rootWindow, listvariable=supportedBrowsers, selectmode="single", )
 
     for browser in range(len(supportedBrowsers)):

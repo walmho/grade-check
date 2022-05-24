@@ -7,22 +7,22 @@ intake requested data from init.py and be used in main.py (I hope)
 
 #This .py file should ONLY contain functions (anda import lines)
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
 import time
+#from init import driver
 
 #I feel like this should only be temporary for now. Try installing newer chromedriver version
-driver = webdriver.Chrome(ChromeDriverManager().install())
+
 
 #Might want to change all URL links to be stored in functions
 #UF stands for user-friendly. these functions aren't called for the beautiful soup version.
-def newWindow_UF():
+def newWindow_UF(driver):
     #init is acting weird for calling functions from it. Once again, default the driver to chrome for now
     #init.driver.get("https://www.coolmathgames.com/")
     
     #If this project ever becomes big enough I might make a small website for it just to have something to open as default...
     driver.get("https://google.com")
 
-def googleClassroom_UF(username, password):
+def googleClassroom_UF(username, password, driver):
     #Opening new tab
     driver.execute_script("window.open('');")
     driver.switch_to.window(driver.window_handles[1])
@@ -45,7 +45,7 @@ def googleClassroom_UF(username, password):
     
     #Next to step is to pull data from classroom
     
-def studentVUE_UF(username, password):
+def studentVUE_UF(username, password, driver):
     #Need to make this more intuitive (so it only switches to a new tab if another window is open, or makes a new one if it's the only command, etc.)
     driver.execute_script("window.open('');")
     driver.switch_to.window(driver.window_handles[1])
@@ -60,7 +60,7 @@ def studentVUE_UF(username, password):
     nextButton = driver.find_element_by_id("ctl00_MainContent_Submit1")
     nextButton.click()
     
-def emailCheck_UF(username, password):
+def emailCheck_UF(username, password, driver):
     #Same intuitive issue with studentVUE
     driver.get("https://outlook.office.com/mail/inbox")
     time.sleep(3)
@@ -78,8 +78,3 @@ def emailCheck_UF(username, password):
     
     dontStayLogged = driver.find_element_by_id("idBtn_Back")
     dontStayLogged.click()
-    
-newWindow_UF()
-#googleClassroom_UF("joner689@hsd.k12.or.us", "PASSWORDWOULDBEHERE!")
-#studentVUE_UF("joner689", "PASSWORDWOULDBEHERE!")
-emailCheck_UF("joner689@hsd.k12.or.us", "PASSWORDWOULDBEHERE!")
