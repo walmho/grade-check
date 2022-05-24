@@ -47,6 +47,7 @@ def googleClassroom_UF(username, password, driver):
     
 def studentVUE_UF(username, password, driver):
     #Need to make this more intuitive (so it only switches to a new tab if another window is open, or makes a new one if it's the only command, etc.)
+    driver.get("https://google.com")
     driver.execute_script("window.open('');")
     driver.switch_to.window(driver.window_handles[1])
     driver.get("https://myvue.cascadetech.org/hillsboro/PXP2_Login_Student.aspx?regenerateSessionId=True")

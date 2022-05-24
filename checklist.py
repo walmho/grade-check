@@ -5,8 +5,9 @@ import tkinter as tk
 
 #Defaults to chrome browser and instant data. Maybe later allow the user to change defaults by
 #reading and writing off a text file
-#userPreferences = ["Chrome", 2]
-userPreferences = []
+
+#This line is a problem, you need to fix it
+userPreferences = ["Chrome", 2]
 
 rootWindow = tk.Tk()
 rootWindow.title("Grade Check Beta")
