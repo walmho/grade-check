@@ -13,14 +13,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 selectedBrowser = userPreferences[0]
 version = userPreferences[1]
 
-#My sorry attempt at a sorting algorithm
 userInfo = []
 for i in range(2, len(userPreferences)):
-    #Eventually make this load into a dictionary where the key is the site needed and values are user, password
     userInfo.append(userPreferences[i])
    
 siteAmount = int(len(userInfo)/3)
-print(siteAmount)
 
 newInfo = []
 newUser = []
@@ -29,18 +26,20 @@ for i in range(siteAmount):
     website = userInfo[i]
     newInfo.append(website)
 
-print(newInfo)
-
-for j in range(siteAmount, len(userInfo)-siteAmount, 2):
+for j in range(siteAmount, len(userInfo), 2):
     username = userInfo[j]
     password = userInfo[j+1]
     
     newUser.append([username, password])
 
-print(userInfo)
-print("\n\n")
-print(newInfo)
-print(newUser)
+compiledData = {}
+for k in range(len(newInfo)):
+    compiledData[newInfo[k]] = newUser[k]
+
+# print(userInfo)
+# print("\n\n")
+# print(compiledData)
+# print("\n")
 
 if init.userFriendly(selectedBrowser, version):
     if version == 1:
