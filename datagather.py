@@ -31,7 +31,7 @@ def googleClassroom_UF(username, password, driver):
     #logging in
     emailEntry = driver.find_element_by_id("identifierId")
     emailEntry.send_keys(username)
-    nextButton = driver.find_element_by_class_name("VfPpkd-vQzf8d")
+    nextButton = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div/div[1]/div")
     nextButton.click()
     
     #To allow for time for the page to load
@@ -40,7 +40,7 @@ def googleClassroom_UF(username, password, driver):
     #If possible try and go back and use something other than xpath because it's a lot messier, though it is foolproof
     passwordEntry = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div[1]/div/div/div/div/div[1]/div/div[1]/input")
     passwordEntry.send_keys(password)
-    nextButton = driver.find_element_by_class_name("VfPpkd-vQzf8d")
+    nextButton = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div/div[1]/div/div")
     nextButton.click()
     
     #Next to step is to pull data from classroom
@@ -64,6 +64,8 @@ def studentVUE_UF(username, password, driver):
     
 def emailCheck_UF(username, password, driver):
     #Same intuitive issue with studentVUE
+    
+    #Need to check to see what domain the email is in; gmail will require different code than outlook
     driver.get("https://outlook.office.com/mail/inbox")
     time.sleep(3)
     #logging in

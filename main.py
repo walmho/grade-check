@@ -36,24 +36,21 @@ compiledData = {}
 for k in range(len(newInfo)):
     compiledData[newInfo[k]] = newUser[k]
 
-print(userInfo)
+# print(userInfo)
 # print("\n\n")
-print(compiledData)
+# print(compiledData)
 # print("\n")
 
 if init.userFriendly(selectedBrowser, version):
     if version == 1:
         for website in range(siteAmount):
-            #siteAmount -= website
-            #print("\n{}th iteration".format(website))
-            #print(userInfo[website])
-            
+            #Right now this is using chrome and not referencing the version variable in userPreferences
             if newInfo[website] == "Calculate GPA":
-                studentVUE_UF(userInfo[website+siteAmount], userInfo[website+siteAmount+1], webdriver.Chrome(ChromeDriverManager().install()))
+                studentVUE_UF(compiledData[newInfo[website]][0], compiledData[newInfo[website]][1], webdriver.Chrome(ChromeDriverManager().install()))
             elif newInfo[website] == "List Assignments (Google Classroom)":
-                googleClassroom_UF(userInfo[website+siteAmount+siteAmount], userInfo[website+siteAmount+1], webdriver.Chrome(ChromeDriverManager().install()))
+                googleClassroom_UF(compiledData[newInfo[website]][0], compiledData[newInfo[website]][1], webdriver.Chrome(ChromeDriverManager().install()))
             elif userInfo[website] == "Check Email":
-                emailCheck_UF(userInfo[website+siteAmount], userInfo[website+siteAmount+1], webdriver.Chrome(ChromeDriverManager().install()))
+                emailCheck_UF(compiledData[newInfo[website]][0], compiledData[newInfo[website]][1], webdriver.Chrome(ChromeDriverManager().install()))
 
 else:
     print("Using BeautifulSoup for instant data\n")
