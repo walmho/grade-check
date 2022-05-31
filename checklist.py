@@ -180,9 +180,20 @@ def terminateWindows(loginList):
 
     return userPreferences
 
-loadHelp()
-chooseVersion()
-pickBrowser()
+def raiseError():
+    uhOh = tk.Tk()
+    uhOh.geometry("500x150")
+    message = Label(uhOh, text="""
+                    Oh no! An error occured while trying to log you in or gather data.
+                    It is possible that you entered your username or password incorrectly, or
+                    that the program tried logging into a domain. Please exit or try again.
+                    """, font=("Times New Roman", 12), bd=5)
+    message.place(x=225, y=75, anchor="center")
+
+# loadHelp()
+# chooseVersion()
+# pickBrowser()
+raiseError()
 
 rootWindow.mainloop()
     
