@@ -36,9 +36,9 @@ compiledData = {}
 for k in range(len(newInfo)):
     compiledData[newInfo[k]] = newUser[k]
 
-# print(userInfo)
+print(userInfo)
 # print("\n\n")
-# print(compiledData)
+print(compiledData)
 # print("\n")
 
 if init.userFriendly(selectedBrowser, version):
