@@ -190,10 +190,9 @@ def raiseError():
                     """, font=("Times New Roman", 12), bd=5)
     message.place(x=225, y=75, anchor="center")
 
-# loadHelp()
-# chooseVersion()
-# pickBrowser()
-raiseError()
+loadHelp()
+chooseVersion()
+pickBrowser()
 
 rootWindow.mainloop()
     

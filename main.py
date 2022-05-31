@@ -4,10 +4,14 @@ from tkinter import *
 
 from checklist import userPreferences
 from datagather import *
+#As in, safety net
+from checklist import raiseError
 #import datagather as dt
 
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import NoSuchElementException
 
 #Try and put this in a function later
 selectedBrowser = userPreferences[0]
@@ -41,11 +45,29 @@ if init.userFriendly(selectedBrowser, version):
         for website in range(siteAmount):
             #Right now this is using chrome and not referencing the version variable in userPreferences
             if newInfo[website] == "Calculate GPA":
-                studentVUE_UF(compiledData[newInfo[website]][0], compiledData[newInfo[website]][1], webdriver.Chrome(ChromeDriverManager().install()))
+                #This error won't even raise because studentvue displays user and password on the same webpage. Nothing will happen until more is added to the function to get it to scrape data
+                try:
+                    studentVUE_UF(compiledData[newInfo[website]][0], compiledData[newInfo[website]][1], webdriver.Chrome(ChromeDriverManager().install()))
+                
+                except WebDriverException:
+                    raiseError()
+                    driver.quit()
+
             elif newInfo[website] == "List Assignments (Google Classroom)":
-                googleClassroom_UF(compiledData[newInfo[website]][0], compiledData[newInfo[website]][1], webdriver.Chrome(ChromeDriverManager().install()))
+                try:
+                    googleClassroom_UF(compiledData[newInfo[website]][0], compiledData[newInfo[website]][1], webdriver.Chrome(ChromeDriverManager().install()))
+                
+                except WebDriverException:
+                    raiseError()
+                    driver.quit()
+
             elif userInfo[website] == "Check Email":
-                emailCheck_UF(compiledData[newInfo[website]][0], compiledData[newInfo[website]][1], webdriver.Chrome(ChromeDriverManager().install()))
+                try:
+                    emailCheck_UF(compiledData[newInfo[website]][0], compiledData[newInfo[website]][1], webdriver.Chrome(ChromeDriverManager().install()))
+                
+                except WebDriverException:
+                    raiseError()
+                    driver.quit()
 
 else:
     print("Using BeautifulSoup for instant data\n")
