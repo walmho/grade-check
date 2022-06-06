@@ -53,7 +53,8 @@ def studentVUE_UF(username, password, driver):
     
     nextButton = driver.find_element_by_id("ctl00_MainContent_Submit1")
     nextButton.click()
-    return
+    
+    gradeButton = driver.get("https://myvue.cascadetech.org/hillsboro/PXP2_Gradebook.aspx?AGU=0&studentGU=2903231D-1B71-416F-BEE2-541C82022FDD")
     
 def emailCheck_UF(username, password, driver):
     #Same intuitive issue with studentVUE
