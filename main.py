@@ -51,7 +51,7 @@ if init.userFriendly(selectedBrowser, version):
                 
                 except WebDriverException:
                     raiseError()
-                    driver.quit()
+                    dt.driver.quit()
 
             elif newInfo[website] == "List Assignments (Google Classroom)":
                 try:
@@ -59,7 +59,7 @@ if init.userFriendly(selectedBrowser, version):
                 
                 except WebDriverException:
                     raiseError()
-                    driver.quit()
+                    dt.driver.quit()
 
             elif userInfo[website] == "Check Email":
                 try:
@@ -67,7 +67,7 @@ if init.userFriendly(selectedBrowser, version):
                 
                 except WebDriverException:
                     raiseError()
-                    driver.quit()
+                    dt.driver.quit()
 
 else:
     print("Using BeautifulSoup for instant data\n")
